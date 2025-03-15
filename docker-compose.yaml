@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  postgres-ssh:
+    image: postgres:15
+    container_name: postgres-ssh
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+      - "2222:22"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - /opt/airflow/config/id_rsa.pub:/root/.ssh/authorized_keys  # Clé publique dans le conteneur
+    command: >
+      bash -c "
+        apt-get update && apt-get install -y openssh-server &&
+        mkdir -p /var/run/sshd &&
+        echo 'root:root' | chpasswd &&
+        sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config &&
+        chmod 600 /root/.ssh/authorized_keys &&
+        service ssh start &&
+        docker-entrypoint.sh postgres
+      "
+
+volumes:
+  postgres_data:
