@@ -44,7 +44,7 @@ airflow scheduler
 docker exec -it postgres-ssh psql -U postgres -c "SELECT * FROM test;"
 ```
 ## Problème rencontré
-J'ai plutot rencontré de problème au niveau de la configuration de l'authentification ssh au niveau du wsl. C'est à dire j'ai une erreur 'Permission denied(publickey)'. Alors que si je n'ai pas ce problème en accédant au server par windows.
+J'ai plutot rencontré de problème au niveau de la configuration de l'authentification ssh au niveau du wsl. C'est à dire j'ai une erreur 'Permission denied(publickey)'. Alors que je n'ai pas ce problème en accédant au server par windows.
 
 
 Auteur: [thibaut7] | Date: 15 mars 2024
