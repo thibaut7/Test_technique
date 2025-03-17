@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   postgres-ssh:
     image: postgres:15
@@ -12,7 +10,7 @@ services:
       - "2222:22"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - /opt/airflow/config/id_rsa.pub:/root/.ssh/authorized_keys  # Clé publique dans le conteneur
+      - /home/thibaut7/.ssh/id_rsa.pub:/root/.ssh/authorized_keys  # Clé publique dans le conteneur
     command: >
       bash -c "
         apt-get update && apt-get install -y openssh-server &&
